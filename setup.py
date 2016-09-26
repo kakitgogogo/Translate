@@ -1,4 +1,6 @@
 #-*- coding:utf-8 -*-
+import os
+import sys
 try:
     from setuptools import setup
 except:
@@ -8,8 +10,10 @@ setup(
 	name="tran",
 	version="1.0",
 	description="方便在终端中译英和英译中的小工具",
+	classifiers=[],
 	keywords="python terminal",
 	author="kakit",
 	author_email="kakitgo@gmail.com",
-	url="https://github.com/kakitgogogo/Translator"
+	url="https://github.com/kakitgogogo/Translator",
+	install_requires=['json',],
 	)
