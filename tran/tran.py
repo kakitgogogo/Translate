@@ -5,13 +5,7 @@ import sys
 import urllib2
 import getopt
 
-if len(sys.argv)>=2:
-	word=sys.argv[1]
-elif len(sys.argv)==1:
-	word=raw_input("输入查询词：")
-
 key="0EAE08A016D6688F64AB3EBB2337BFB0";
-url="http://dict-co.iciba.com/api/dictionary.php?w="+word+"&key="+key+"&type=json"
 
 init='\033[0m'
 black='\033[30m'
@@ -24,14 +18,7 @@ purple='\033[35m'
 def color_print(str,color=black):
 	print color+str+'\033[0m'
 
-try:
-	page=urllib2.urlopen(url)
-except Exception:
-	color_print("翻译失败",red)
-
-data=json.loads(page.read())
-
-if sys.argv[1].isalpha():
+def en2cn(data):
 	try:
 		ph_en=data["symbols"][0]["ph_en"]
 		if ph_en:
@@ -49,7 +36,7 @@ if sys.argv[1].isalpha():
 	except Exception:
 		color_print("翻译失败",red)
 
-else:
+def cn2en(data):
 	try:
 		means=data["symbols"][0]["parts"][0]["means"]
 		i=1
@@ -62,4 +49,25 @@ else:
 		color_print(pron,blue)
 	except Exception:
 		color_print("翻译失败",red)
+
+def main():
+	if len(sys.argv)>=2:
+		word=sys.argv[1]
+	elif len(sys.argv)==1:
+		word=raw_input("输入查询词：")
+	url="http://dict-co.iciba.com/api/dictionary.php?w="+word+"&key="+key+"&type=json"
+
+	try:
+		page=urllib2.urlopen(url)
+	except Exception:
+		color_print("翻译失败",red)
+
+	data=json.loads(page.read())
+
+	if word.isalpha():
+		en2cn(data)
+	else:
+		cn2en(data)
 		
+if __name__=="__main__":
+	main()

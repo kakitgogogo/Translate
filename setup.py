@@ -15,5 +15,10 @@ setup(
 	author="kakit",
 	author_email="kakitgo@gmail.com",
 	url="https://github.com/kakitgogogo/Translator",
-	install_requires=['json',],
-	)
+	packages=['tran',],
+	entry_points={
+        'console_scripts':[
+            'tran = tran.tran:main'
+        ]
+      },
+)
